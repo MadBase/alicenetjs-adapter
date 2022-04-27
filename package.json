@@ -1,0 +1,15 @@
+{
+  "name": "alicenetjs-adapter",
+  "version": "1.0.0",
+  "description": "A JS Adapter for alicewalletjs -- Provide additional abstraction for common functionality",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "alicenetjs": "github:MadBase/alicenetjs",
+    "madnetjs": "github:MadBase/alicenetjs"
+  }
+}
