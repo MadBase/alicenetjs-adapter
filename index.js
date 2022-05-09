@@ -54,8 +54,12 @@ class AliceNetAdapter {
         this.equalize = stateEqualizer;
     }
 
-    // Initialize the adapter by trying to connect to the RPC endpoint
+    /**
+     *Initialize the adapter by trying to connect to the RPC endpoint
+     @returns {Boolean|Object} - True if OK or {error.msg}
+     */
     async init() {
+        console.log("INITLOCAL");
         try {
             this.busy = "Connecting";
             this.equalize();
@@ -63,11 +67,18 @@ class AliceNetAdapter {
             this.connected = true;
             this.busy = false;
             this.equalize();
+            return true;
         }
         catch (ex) {
             console.log(ex)
             this.error = ex.message;
+            return this._err(ex.message);
         }
+    }
+
+    clearError() {
+        this.error = false;
+        this.equalize();
     }
 
     _err(msg) {
@@ -88,9 +99,8 @@ class AliceNetAdapter {
                 return methodToTry();
             }
         } catch (ex) {
-            console.log(ex)
-            let errMsg = errorPrefix + " -- " + ex.message;
             console.error(errMsg);
+            let errMsg = errorPrefix + " -- " + ex.message;
             return this._err(errMsg);
         }
     }
