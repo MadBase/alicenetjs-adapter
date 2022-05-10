@@ -99,8 +99,8 @@ class AliceNetAdapter {
                 return methodToTry();
             }
         } catch (ex) {
-            console.error(errMsg);
             let errMsg = errorPrefix + " -- " + ex.message;
+            console.error(errMsg);
             return this._err(errMsg);
         }
     }
