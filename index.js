@@ -206,6 +206,7 @@ class AliceNetAdapter {
         this.transactionHeight = txHeight;
         let blockHeader = await this._trySubMethod("alicenetjs-adapter.viewBlockFromTxHash", async () => this.wallet.Rpc.getBlockHeader(txHeight));
         this.blockInfo = blockHeader;
+        this.busy = false;
         return blockHeader;
     }
 
@@ -221,6 +222,7 @@ class AliceNetAdapter {
         this.transaction = Tx["Tx"];
         let txHeight = await this._trySubMethod("alicenetjs-adapter.viewTransaction", async () => this.wallet.Rpc.getTxBlockHeight(txHash));
         this.transactionHeight = txHeight;
+        this.busy = false;
         this.equalize();
         return [this.transaction, this.transactionHeight];
     }
