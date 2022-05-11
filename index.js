@@ -65,8 +65,8 @@ class AliceNetAdapter {
             this.equalize();
             await this.wallet.Rpc.setProvider(this.provider)
             this.connected = true;
-            this.equalize();
             this.busy = false;
+            this.equalize();
             return true;
         }
         catch (ex) {
@@ -178,8 +178,8 @@ class AliceNetAdapter {
         this.busy = "Getting Block By Number: " + height;
         this.equalize();
         let blockNumber = await this._trySubMethod("alicenetjs-adapter.getBlock: ", async () => this.wallet.Rpc.getBlockHeader(height));
-        this.equalize();
         this.busy = false;
+        this.equalize();
         return blockNumber;
     }
 
@@ -207,6 +207,7 @@ class AliceNetAdapter {
         let blockHeader = await this._trySubMethod("alicenetjs-adapter.viewBlockFromTxHash", async () => this.wallet.Rpc.getBlockHeader(txHeight));
         this.blockInfo = blockHeader;
         this.busy = false;
+        this.equalize();
         return blockHeader;
     }
 
@@ -222,8 +223,8 @@ class AliceNetAdapter {
         this.transaction = Tx["Tx"];
         let txHeight = await this._trySubMethod("alicenetjs-adapter.viewTransaction", async () => this.wallet.Rpc.getTxBlockHeight(txHash));
         this.transactionHeight = txHeight;
-        this.equalize();
         this.busy = false;
+        this.equalize();
         return [this.transaction, this.transactionHeight];
     }
 
@@ -266,8 +267,8 @@ class AliceNetAdapter {
         }
         let DStores = await this._trySubMethod("alicenetjs", async () => this.wallet.Rpc.getUTXOsByIds(dataStoreUTXOIDs));
         this.dsLock = false;
-        this.equalize();
         this.busy = false;
+        this.equalize();
         return DStores;
     }
 
