@@ -10,6 +10,6 @@
     "license": "ISC",
     "dependencies": {
         "alicenetjs": "github:MadBase/alicenetjs",
-        "big-integer": "^1.6.51"
+        "big-integer": "1.6.51"
     }
 }
