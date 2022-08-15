@@ -105,6 +105,18 @@ class AliceNetAdapter {
         }
     }
 
+    /**
+     * Returns Alice Net wallet balance and utxoids for respective address and curve
+     * @param address - Wallet address to look up the balance for
+     * @param curve - Address curve to use
+     */
+     async getBalanceAndUTXOs(address, curve = 1) {
+        if (!address) { return this._err("Missing required 'address' parameter") };
+        let [utxoids, balance] = await this._trySubMethod("alicenetjs-adapter.getBalanceAndUTXOs: ", async () => this.wallet.Rpc.getValueStoreUTXOIDs(address, curve));
+        balance = String(parseInt(balance, 16));
+        return [balance, utxoids];
+    }
+
     /** Begin monitoring blocks -- Will update this.blocks every 5 seconds */
     startMonitoringBlocks() {
         if (!this.blocksMonitoringEnabled) {
