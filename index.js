@@ -20,6 +20,9 @@ class AliceNetAdapter {
         this.MaxDataStoreSize = 2097152;
         this.BaseDatasizeConst = 376;
 
+        // Accounts 
+        this.balances = {};
+
         // Block explorer panel
         this.blockMonitorTimeout = () => { };
         this.blockMonitoringError = false;
@@ -103,6 +106,29 @@ class AliceNetAdapter {
             console.error(errMsg);
             return this._err(errMsg);
         }
+    }
+
+    /**
+     * Returns Alice Net wallet balance and utxoids for respective address and curve
+     * @param address - Wallet address to look up the balance for
+     * @param curve - Address curve to use
+     */
+     async getBalanceAndUTXOs(address, curve = 1) {
+        if (!address) { return this._err("Missing required 'address' parameter") };
+        let [utxoids, balance] = await this._trySubMethod("alicenetjs-adapter.getBalanceAndUTXOs: ", async () => this.wallet.Rpc.getValueStoreUTXOIDs(address, curve));
+        balance = String(parseInt(balance, 16));
+        return [balance, utxoids];
+    }
+
+    /**
+     * Updates Alice Net wallet balance and utxoids for respective address and curve
+     * @param address - Wallet address to look up the balance for
+     * @param curve - Address curve to use
+     */
+    async updateBalanceForAddress(address, curve = 1) {
+        let [balance] = await this.getBalanceAndUTXOs(address, curve);
+        this.balances = { ...this.balances, [address]: balance };       
+        this.equalize();    
     }
 
     /** Begin monitoring blocks -- Will update this.blocks every 5 seconds */
