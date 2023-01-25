@@ -1,5 +1,5 @@
 import BigInt from "big-integer";
-import AliceNetWallet from "alicenetjs";
+import AliceNetWallet from "@alicenet_/alicenetjs-legacy";
 
 class AliceNetAdapter {
 
@@ -90,9 +90,8 @@ class AliceNetAdapter {
 
     /**
      * Try a function call and return error object while logging issues to console
-     * @param {*} methodToTry 
-     * @param {*} methodParams
-     * @param {*} errorPrefix 
+     * @param {*} errorPrefix
+     * @param {*} methodToTry
      */
     async _trySubMethod(errorPrefix, methodToTry) {
         try {
@@ -280,7 +279,7 @@ class AliceNetAdapter {
      * @param {*} index 
      * @returns 
      */
-    async getDataStoresForAddres(address = "eeacfc737e72fdf2518fb58c0a620f783eb2515f", curve = 1, index) {
+    async getDataStoresForAddress(address = "eeacfc737e72fdf2518fb58c0a620f783eb2515f", curve = 1, index) {
         this.dsLock = true;
         this.busy = "Getting Datastores";
         this.equalize();
