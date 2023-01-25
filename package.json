@@ -9,7 +9,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "alicenetjs": "github:MadBase/alicenetjs",
+        "@alicenet_/alicenetjs-legacy": "^1.0.3",
         "big-integer": "1.6.51"
     }
 }
