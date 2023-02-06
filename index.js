@@ -283,7 +283,18 @@ class AliceNetAdapter {
         this.dsLock = true;
         this.busy = "Getting Datastores";
         this.equalize();
-        let dataStoreUTXOIDs = await this._trySubMethod("alicenetjs-adapter.getDataStoresForAddress: ", async () => this.wallet.Rpc.getDataStoreUTXOIDs(address, curve, (this.DataPerPage + 1), index));
+        // Preface index 0x
+        index = (index[0] === "0" && index[1] === "x") ? index : "0x" + index;
+        /**
+         * NOTE:
+         * Currently the backend is exclusionary on limits >1 -- To provide the best experience indexes(offsets) passed will be reduced by 1 so they are inclusionary
+         * This means if you search index 1, you will get 1,2,3,4,5,6 -- API without -1 will provide 2,3,4,5,6,7.
+         * Additionally only step it down if it is >0  
+         */
+        const steppedDownIndex = BigInt(index) === BigInt(0) ? BigInt(0).toString(16).padStart(64, "0") : (BigInt(index) - BigInt(1)).toString(16).padStart(64, "0");
+        let dataStoreUTXOIDs = await this._trySubMethod(
+            "alicenetjs-adapter.getDataStoresForAddress: ", 
+            async () => this.wallet.Rpc.getDataStoreUTXOIDs(address, curve, (this.DataPerPage + 1), steppedDownIndex));
         console.log(dataStoreUTXOIDs)
         if (!dataStoreUTXOIDs) {
             this.dsLock = false;
