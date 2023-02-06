@@ -283,6 +283,8 @@ class AliceNetAdapter {
         this.dsLock = true;
         this.busy = "Getting Datastores";
         this.equalize();
+        // Preface index 0x
+        index = (index[0] === "0" && index[1] === "x") ? index : "0x" + index;
         /**
          * NOTE:
          * Currently the backend is exclusionary on limits >1 -- To provide the best experience indexes(offsets) passed will be reduced by 1 so they are inclusionary
