@@ -1,5 +1,5 @@
 import BigInt from "big-integer";
-import AliceNetWallet from "@alicenet_/alicenetjs-legacy";
+import AliceNetWallet from "@alicenet_/alicenetjs";
 
 class AliceNetAdapter {
 
